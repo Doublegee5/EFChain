@@ -15,6 +15,7 @@ contract DonationEscrow {
         uint8 _milestones
     ) payable {
         require(msg.value > 0, "No funds sent");
+        require(_milestones > 0, "Milestones must be > 0");
         student = _student;
         donor = _donor;
         totalAmount = msg.value;
