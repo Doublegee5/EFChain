@@ -1,37 +1,30 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
-contract DonationEscrow {
-    address public student;
-    address public donor;
-    uint256 public totalAmount;
-    uint256 public milestoneAmount;
-    uint8 public milestones;
-    uint8 public currentMilestone;
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-    constructor(
-        address _student,
-        address _donor,
-        uint8 _milestones
-    ) payable {
-        require(msg.value > 0, "No funds sent");
-        require(_milestones > 0, "Milestones must be > 0");
-        student = _student;
-        donor = _donor;
-        totalAmount = msg.value;
-        milestones = _milestones;
-        milestoneAmount = msg.value / _milestones;
-        currentMilestone = 0;
+contract DonationEscrow is Ownable {
+    event DonationReceived(address indexed donor, uint256 amount);
+    event Withdrawn(address indexed recipient, uint256 amount);
+
+    constructor() Ownable(msg.sender) {}
+
+    receive() external payable {
+        emit DonationReceived(msg.sender, msg.value);
     }
 
-    function verifyMilestone() external {
-        // Will later integrate Chainlink Functions here
-        require(currentMilestone < milestones, "All milestones completed");
-        currentMilestone++;
-        payable(student).transfer(milestoneAmount);
+    function donate() external payable {
+        require(msg.value > 0, "Donation must be greater than zero");
+        emit DonationReceived(msg.sender, msg.value);
     }
 
-    function getBalance() public view returns (uint256) {
+    function withdraw(address payable recipient, uint256 amount) external onlyOwner {
+        require(address(this).balance >= amount, "Insufficient balance");
+        recipient.transfer(amount);
+        emit Withdrawn(recipient, amount);
+    }
+
+    function getBalance() external view returns (uint256) {
         return address(this).balance;
     }
 }
