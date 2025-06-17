@@ -1,12 +1,14 @@
+const hre = require("hardhat");
+
 async function main() {
-  const [deployer] = await ethers.getSigners();
-  console.log("Deploying contracts with the account:", deployer.address);
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying with address:", deployer.address);
 
-  const EFchainStudentSBT = await ethers.getContractFactory("EFchainStudentSBT");
-  const sbt = await EFchainStudentSBT.deploy(deployer.address);  // pass your address as initialOwner
-  await sbt.deployed();
+  const Contract = await hre.ethers.getContractFactory("EFchainStudentSBT");
+  const contract = await Contract.deploy();
 
-  console.log("EFchainStudentSBT deployed to:", sbt.address);
+  await contract.deployed();
+  console.log("EFchainStudentSBT deployed to:", contract.address);
 }
 
 main().catch((error) => {
