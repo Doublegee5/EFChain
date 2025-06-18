@@ -5,15 +5,13 @@ async function main() {
   console.log("Deploying with address:", deployer.address);
 
   const ContractFactory = await hre.ethers.getContractFactory("EFchainStudentSBT");
-  const contract = await ContractFactory.deploy(); // No args here, unless your constructor needs it
+  const contract = await ContractFactory.deploy();
 
-  await contract.waitForDeployment(); // ✅ Ethers v6 method
-
-  const address = await contract.getAddress(); // ✅ Ethers v6 method
-  console.log("Contract deployed at:", address);
+  await contract.waitForDeployment(); // ✅ Ethers v6 syntax
+  console.log("Contract deployed to:", await contract.getAddress());
 }
 
 main().catch((error) => {
-  console.error("Deployment failed:", error);
+  console.error(error);
   process.exitCode = 1;
 });
