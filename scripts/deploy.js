@@ -7,11 +7,11 @@ async function main() {
   console.log("Deploying with address:", deployer.address);
 
   const ContractFactory = await hre.ethers.getContractFactory("EFchainStudentSBT");
-  const contract = await ContractFactory.deploy(); // deploy the contract
+  const contract = await ContractFactory.deploy(); // Deploy the contract
 
-  await contract.waitForDeployment(); // <-- replaces contract.deployed()
+  await contract.waitForDeployment(); // Correct way to wait for deployment in Ethers v6
 
-  console.log("Contract deployed at:", await contract.getAddress());
+  console.log("Contract deployed at:", await contract.getAddress()); // Ethers v6 syntax
 }
 
 main().catch((error) => {
