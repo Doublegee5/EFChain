@@ -4,7 +4,6 @@ const config = require('./functions-request-config');
 async function main() {
   const { source, secrets, args } = config;
 
-  // Encode the user request into CBOR
   const requestConfig = {
     codeLocation: config.codeLocation,
     codeLanguage: config.codeLanguage,
@@ -16,8 +15,7 @@ async function main() {
   const cborPayload = await buildRequestCBOR(requestConfig);
   console.log('📦 Encoded CBOR payload:', cborPayload.toString('hex'));
 
-  // Simulate a fake Chainlink oracle response
-  const dummyResponse = Buffer.from("0000000000000bb8", "hex"); // 0xbb8 = 3000
+  const dummyResponse = Buffer.from("0000000000000000000000000000000000000000000000000000000000000bb8", "hex");
   const decoded = decodeResult(dummyResponse, config.expectedReturnType);
 
   console.log('🔍 Decoded simulated result:', decoded.toString());
