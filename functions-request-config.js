@@ -2,7 +2,6 @@ module.exports = {
   codeLocation: 0, // Inline code
   codeLanguage: 0, // JavaScript
   source: `
-    // Chainlink Functions Request Source Code
     const response = await Functions.makeHttpRequest({
       url: "https://api.coindesk.com/v1/bpi/currentprice/BTC.json"
     });
