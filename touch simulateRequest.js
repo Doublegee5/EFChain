@@ -12,12 +12,18 @@ async function main() {
     args,
   };
 
+  // ✅ Encode the user request
   const cborPayload = await buildRequestCBOR(requestConfig);
   console.log('📦 Encoded CBOR payload:', cborPayload.toString('hex'));
 
-  const dummyResponse = Buffer.from("0000000000000000000000000000000000000000000000000000000000000bb8", "hex");
-  const decoded = decodeResult(dummyResponse, config.expectedReturnType);
+  // ✅ 3000 in uint256 (32 bytes = 64 hex chars)
+  const dummyResponse = Buffer.from(
+    "0000000000000000000000000000000000000000000000000000000000000bb8",
+    "hex"
+  );
 
+  // ✅ Decode the dummy Chainlink oracle response
+  const decoded = decodeResult(dummyResponse, config.expectedReturnType);
   console.log('🔍 Decoded simulated result:', decoded.toString());
 }
 
