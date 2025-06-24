@@ -1,19 +1,22 @@
-const hre = require("hardhat");
-
+// scripts/deploy.js
 async function main() {
-  const [deployer] = await hre.ethers.getSigners();
-  console.log("Deploying with address:", deployer.address);
+  const [deployer] = await ethers.getSigners();
 
-  const ContractFactory = await hre.ethers.getContractFactory("EFchainStudentSBT");
-  const contract = await ContractFactory.deploy();
+  console.log('Deploying contracts with account:', deployer.address);
 
-  // ethers v6: use waitForDeployment()
-  await contract.waitForDeployment();
+  const MilestoneVerifier = await ethers.getContractFactory('MilestoneVerifier');
+  // Replace with the Chainlink Functions Oracle contract address for your network
+  const oracleAddress = '0xYourChainlinkFunctionsOracleAddressHere';
 
-  console.log("Contract deployed at:", await contract.getAddress());
+  const verifier = await MilestoneVerifier.deploy(oracleAddress);
+  await verifier.deployed();
+
+  console.log('MilestoneVerifier deployed at:', verifier.address);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
