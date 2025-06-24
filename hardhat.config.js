@@ -1,11 +1,12 @@
-require("@nomicfoundation/hardhat-toolbox");
+require("@nomiclabs/hardhat-ethers");
+require("dotenv").config();
 
 module.exports = {
-  solidity: "0.8.19",
   networks: {
     sepolia: {
-      url: "https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID", // or Alchemy endpoint
-      accounts: ["0xYOUR_PRIVATE_KEY"]
+      url: "https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID",
+      accounts: [process.env.PRIVATE_KEY]
     }
-  }
+  },
+  solidity: "0.8.19",
 };
