@@ -1,21 +1,22 @@
 // simulateRequest.js
+console.log("Starting decode test...");
 
-console.log("Starting Chainlink Functions request simulation...");
+// Hardcoded Chainlink-like hex string (3000 padded to 32 bytes)
+const dummyResponseHex = "0000000000000000000000000000000000000000000000000000000000000bb8";
 
-// Example async function simulating a Chainlink Functions call
-async function simulateChainlinkRequest() {
-  // Simulated data returned from a Chainlink function (replace with your real logic)
-  const simulatedResponse = "0x0000000000000000000000000000000000000000000000000000000000000bb8"; // hex for 3000 padded to 32 bytes
+console.log("Hex string length:", dummyResponseHex.length);
 
-  console.log("Simulated response hex string:", simulatedResponse);
-
-  // You can add your decoding logic here if you want
-  // For now, just log the number (3000 decimal)
-  const decodedNumber = parseInt(simulatedResponse, 16);
-
-  console.log("Decoded number from hex:", decodedNumber);
+// Validate length
+if (dummyResponseHex.length !== 64) {
+  throw new Error("Hex string must be 64 characters long (32 bytes for uint256)");
 }
 
-simulateChainlinkRequest()
-  .then(() => console.log("Simulation completed."))
-  .catch((error) => console.error("Simulation error:", error));
+// Validate hex characters
+if (!/^[0-9a-fA-F]+$/.test(dummyResponseHex)) {
+  throw new Error("Hex string contains non-hex characters");
+}
+
+// Decode the hex string to number
+const decodedNumber = parseInt(dummyResponseHex, 16);
+
+console.log("Decoded number:", decodedNumber);
