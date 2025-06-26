@@ -2,6 +2,7 @@
 pragma solidity ^0.8.17;
 
 import "./chainlink/functions/FunctionsClient.sol";
+import "./chainlink/functions/FunctionsRequest.sol";
 
 contract MilestoneVerifier is FunctionsClient {
     using Functions for Functions.Request;
