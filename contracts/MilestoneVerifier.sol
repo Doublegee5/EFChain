@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {Functions, FunctionsRequest} from "@chainlink/contracts/src/v0.8/functions/Functions.sol";
-import {FunctionsClient} from "@chainlink/contracts/src/v0.8/functions/FunctionsClient.sol";
+import "@chainlink/contracts/src/v0.8/functions/FunctionsClient.sol";
+import "@chainlink/contracts/src/v0.8/functions/Functions.sol";
 
 contract MilestoneVerifier is FunctionsClient {
     using Functions for Functions.Request;
