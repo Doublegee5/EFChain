@@ -1,5 +1,5 @@
-require("@chainlink/functions-toolkit"); // for JS toolkit
 require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
 
 module.exports = {
   solidity: "0.8.19",
