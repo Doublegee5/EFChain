@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
-
-import "./FunctionsRequest.sol";
+pragma solidity ^0.8.20;
 
 abstract contract FunctionsClient {
     error OnlyRouterCanFulfill(address have, address want);
