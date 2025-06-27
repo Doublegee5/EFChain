@@ -1,11 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-// ✅ Corrected import paths (local, not npm package)
 import "./chainlink/functions/FunctionsClient.sol";
 import "./chainlink/functions/FunctionsRequest.sol";
 
-// ✅ Inherit from FunctionsClient
 contract MilestoneVerifier is FunctionsClient {
     using Functions for Functions.Request;
 
@@ -25,12 +23,11 @@ contract MilestoneVerifier is FunctionsClient {
             Functions.CodeLanguage.JavaScript,
             string.concat("verifyMilestone(\"", milestone, "\")")
         );
-        lastRequestId = sendRequest(req, 100000); // gas limit
+        lastRequestId = _sendRequest(abi.encode(req), 0, 100000); // subscriptionId 0 for example, adjust as needed
         emit VerificationRequested(lastRequestId);
     }
 
-    // ✅ fulfillRequest: handles the response from Chainlink Functions
-    function fulfillRequest(
+    function _fulfillRequest(
         bytes32 requestId,
         bytes memory response,
         bytes memory err
