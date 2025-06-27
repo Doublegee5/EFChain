@@ -1,14 +1,21 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+library Functions {
+    enum Location { Inline, Remote }
+    enum CodeLanguage { JavaScript, Solidity }
 
-library FunctionsRequest {
     struct Request {
-        string source;
-        bytes secrets;
-        string[] args;
+        string code;
+        Location location;
+        CodeLanguage language;
     }
 
-    function encodeRequest(Request memory req) internal pure returns (bytes memory) {
-        return abi.encode(req.source, req.secrets, req.args);
+    function initializeRequest(
+        Request memory self,
+        Location location,
+        CodeLanguage language,
+        string memory code
+    ) internal pure {
+        self.location = location;
+        self.language = language;
+        self.code = code;
     }
 }
