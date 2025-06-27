@@ -4,7 +4,8 @@ async function main() {
   const [deployer] = await hre.ethers.getSigners();
   console.log("Deploying contracts with:", deployer.address);
 
-  const oracleAddress = "0x..."; // 👈 Replace with your actual Chainlink router/oracle address
+  const oracleAddress = "0xcc5cA5A9dC7C1C1B2f38fCdA2517Da2e72eD0564"; // ✅ Chainlink Functions router for Sepolia
+
   const Verifier = await hre.ethers.getContractFactory("MilestoneVerifier");
   const contract = await Verifier.deploy(oracleAddress);
 
