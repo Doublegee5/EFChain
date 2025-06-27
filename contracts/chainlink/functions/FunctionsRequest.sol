@@ -2,23 +2,30 @@
 pragma solidity ^0.8.20;
 
 library Functions {
-    enum Location { Inline, Remote }
-    enum CodeLanguage { JavaScript, Solidity }
+    enum Location {
+        Inline,
+        Remote
+    }
+
+    enum CodeLanguage {
+        JavaScript,
+        // add others if needed
+    }
 
     struct Request {
-        string code;
         Location location;
         CodeLanguage language;
+        string source;
     }
 
     function initializeRequest(
         Request memory self,
         Location location,
         CodeLanguage language,
-        string memory code
+        string memory source
     ) internal pure {
-        self.code = code;
         self.location = location;
         self.language = language;
+        self.source = source;
     }
 }
