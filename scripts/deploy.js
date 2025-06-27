@@ -5,7 +5,7 @@ async function main() {
   console.log("Deploying contracts with:", deployer.address);
 
   // ✅ Ensure the address is exactly as provided by Chainlink (checksummed)
-  const oracleAddress = "0xCc5cA5A9dC7C1C1B2f38fCdA2517Da2e72eD0564";
+  const oracleAddress = "0xCc5Ca5A9dC7C1C1B2f38fCdA2517Da2e72Ed0564";
 
   const Verifier = await hre.ethers.getContractFactory("MilestoneVerifier");
   const contract = await Verifier.deploy(oracleAddress);
