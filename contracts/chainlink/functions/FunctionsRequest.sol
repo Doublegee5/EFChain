@@ -9,23 +9,20 @@ library Functions {
 
     enum CodeLanguage {
         JavaScript,
-        // add others if needed
+        WebAssembly
     }
 
     struct Request {
-        Location location;
-        CodeLanguage language;
-        string source;
+        bytes data;
     }
 
     function initializeRequest(
-        Request memory self,
+        Request memory req,
         Location location,
         CodeLanguage language,
         string memory source
     ) internal pure {
-        self.location = location;
-        self.language = language;
-        self.source = source;
+        // Placeholder for actual initialization logic
+        req.data = abi.encode(location, language, source);
     }
 }
