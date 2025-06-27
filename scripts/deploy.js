@@ -1,22 +1,18 @@
-// scripts/deploy.js
+const hre = require("hardhat");
+
 async function main() {
-  const [deployer] = await ethers.getSigners();
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying contracts with:", deployer.address);
 
-  console.log('Deploying contracts with account:', deployer.address);
+  const oracleAddress = "0x..."; // 👈 Replace with your actual Chainlink router/oracle address
+  const Verifier = await hre.ethers.getContractFactory("MilestoneVerifier");
+  const contract = await Verifier.deploy(oracleAddress);
 
-  const MilestoneVerifier = await ethers.getContractFactory('MilestoneVerifier');
-  // Replace with the Chainlink Functions Oracle contract address for your network
-  const oracleAddress = '0xYourChainlinkFunctionsOracleAddressHere';
-
-  const verifier = await MilestoneVerifier.deploy(oracleAddress);
-  await verifier.deployed();
-
-  console.log('MilestoneVerifier deployed at:', verifier.address);
+  await contract.deployed();
+  console.log("MilestoneVerifier deployed to:", contract.address);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
