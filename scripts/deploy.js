@@ -1,21 +1,17 @@
-// scripts/deploy.js
-
 const hre = require("hardhat");
 
 async function main() {
   const [deployer] = await hre.ethers.getSigners();
   console.log("Deploying contracts with:", deployer.address);
 
-  // ✅ Parse and validate the address to avoid checksum errors
-  const oracleAddress = hre.ethers.utils.getAddress("0xCc5cA5A9dC7C1C1B2f38fCdA2517Da2e72eD0564");
+  // Use the EXACT output from getAddress() or the checksum tool
+  const oracleAddress = "0xCc5Ca5A9dC7C1C1B2f38fCdA2517Da2e72Ed0564";
 
-  // Deploy the contract with the validated address
   const Verifier = await hre.ethers.getContractFactory("MilestoneVerifier");
   const contract = await Verifier.deploy(oracleAddress);
 
   await contract.deployed();
-
-  console.log("✅ MilestoneVerifier deployed to:", contract.address);
+  console.log("✅ Contract deployed to:", contract.address);
 }
 
 main().catch((error) => {
