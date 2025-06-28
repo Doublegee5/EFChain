@@ -4,12 +4,14 @@ async function main() {
   const [deployer] = await hre.ethers.getSigners();
   console.log("Deploying contracts with:", deployer.address);
 
-  const oracleAddress = hre.ethers.utils.getAddress("0xCc5cA5A9dC7C1C1b2F38fcda2517Da2e72ED564");
-  const Contract = await hre.ethers.getContractFactory("EFchainStudentSBT");
-  const contract = await Contract.deploy(oracleAddress);
+  // ✅ Use checksummed address
+  const oracleAddress = hre.ethers.utils.getAddress("0xcc5ca5a9dc7c1c1b2f38fcda2517da2e72ed0564");
+
+  const Verifier = await hre.ethers.getContractFactory("MilestoneVerifier");
+  const contract = await Verifier.deploy(oracleAddress);
 
   await contract.deployed();
-  console.log("✅ EFchainStudentSBT deployed to:", contract.address);
+  console.log("✅ MilestoneVerifier deployed to:", contract.address);
 }
 
 main().catch((error) => {
